@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Projet Technique M2 IPII{% endblock %}</title>
+        {% block stylesheets %}
+        	<link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}" />
+        {% endblock %}
+        {% block javascripts %}
+        	<script src="{{ asset('../vendor/bootstrap.js') }}"></script> 
+        	<script src="{{ asset('../vendor/jquery-1.11.0.js') }}"></script>
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+    	<div id="content" style="margin-left:30px;">
+    		{% block contentSection %}{% endblock %}   
+    	</div>    
+    </body>
+</html>

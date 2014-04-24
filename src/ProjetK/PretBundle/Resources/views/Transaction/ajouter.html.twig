@@ -1,0 +1,22 @@
+{% extends "::base.html.twig" %}
+{% block title %}
+    {{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+{% endblock %}
+
+{% block contentSection %}
+<h3>Prêter objet</h3>
+<div class="well">
+  <form method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <input type="submit" class="btn btn-primary" />
+  </form>
+</div>
+{% endblock %}

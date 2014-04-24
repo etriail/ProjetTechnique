@@ -1,0 +1,4 @@
+projet_k_pret:
+    resource: "@ProjetKPretBundle/Resources/config/routing.yml"
+    prefix:   /pret
+

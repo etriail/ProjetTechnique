@@ -1,0 +1,15 @@
+projet_k_pret_homepage:
+    pattern:  /
+    defaults: { _controller: ProjetKPretBundle:Objet:voirObjets }
+
+projet_k_pret_display:
+    pattern:  /liste/{user}
+    defaults: { _controller: ProjetKPretBundle:Objet:voirObjets }
+
+projet_k_pret_ajouterObjet:
+    pattern:  /addObjet
+    defaults: { _controller: ProjetKPretBundle:Objet:createObjet }
+    
+projet_k_pret_preterObjet:
+    pattern:  /add/{objetId}
+    defaults: { _controller: ProjetKPretBundle:Transaction:createTransaction}

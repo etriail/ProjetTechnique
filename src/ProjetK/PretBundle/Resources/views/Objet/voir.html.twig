@@ -1,0 +1,41 @@
+{% extends "::base.html.twig" %}
+{% block title %}
+    {{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+{% endblock %}
+
+{% block contentSection %}
+<h3>Objets prêtés</h3>
+<table>
+	<tr>
+		<th>Nom de l'objet</th><th>Type</th><th>Date du prêt</th><th>Emprunteur</th>
+	</tr>
+	{% for pret in prets %}
+		<tr><td>{{pret.objet.libelle}}</td><td>{{pret.objet.type}}</td><td>{{pret.datePret|date('d/m/Y')}}</td><td>{{pret.emprunteur}}</td></tr>
+	{% else %}
+		<tr><td></td><td></td><td></td></tr>
+	{% endfor %}
+</table>
+<h3>Mes objets</h3>
+<table>
+	<tr>
+		<th>Nom de l'objet</th><th>Type</th><th>&nbsp;</th>
+	</tr>
+	{% for objet in objetsPossedes %}
+		<tr><td>{{objet.libelle}}</td><td>{{objet.type}}</td><td><a href="{{path('projet_k_pret_preterObjet', {'objetId': objet.id}) }}"><button>Prêter</button></a></td></tr>
+	{% else %}
+		<tr><td></td><td></td><td></td></tr>
+	{% endfor %}
+</table>
+
+<p>
+	<a href="{{path('projet_k_pret_ajouterObjet')}}"><button>Nouvel objet</button></a>
+</p>
+{% endblock %}
