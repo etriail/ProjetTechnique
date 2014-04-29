@@ -1,3 +1,7 @@
 projet_k_user_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: ProjetKUserBundle:Default:index }
+
+projet_k_user_register:
+  pattern: /register
+  defaults:  { _controller: FOSUserBundle:Registration:register }

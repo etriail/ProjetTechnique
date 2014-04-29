@@ -12,15 +12,15 @@
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
-    <body>
+    <body style="margin-left:30px;">
     	<div id="authStatus">
     		{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 			    Connecté en tant que {{ app.user.username }} - <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
 			{% else %}
-			    <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+			    Vous n'êtes pas connecté : <a href="{{ path('fos_user_security_login') }}">Connexion</a> ou <a href="{{ path('projet_k_user_register') }}">Inscription</a>
 			{% endif %}
     	</div>
-    	<div id="content" style="margin-left:30px;">
+    	<div id="content" >
     		{% block contentSection %}{% endblock %}   
     	</div>    
     </body>

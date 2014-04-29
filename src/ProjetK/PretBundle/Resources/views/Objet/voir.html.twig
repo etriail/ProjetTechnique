@@ -13,43 +13,50 @@
 
 {% block contentSection %}
 <h3>Objets prêtés</h3>
-<table>
-	<tr>
-		<th>Nom de l'objet</th><th>Type</th><th>Date du prêt</th><th>Emprunteur</th><th>&nbsp;</th>
-	</tr>
-	{% for objet in objetsPretes %}
-		<tr><td>{{objet.libelle}}</td><td>{{objet.type}}</td><td>{{objet.transaction.datePret|date('d/m/Y')}}</td><td>{{objet.transaction.emprunteur.username}}</td>
-			<td><a href="{{path('projet_k_pret_finPret', {'transactionId': objet.transaction.id}) }}"><button>Récupérer</button></a></td></tr>
-	{% else %}
-		<tr><td></td><td></td><td></td></tr>
-	{% endfor %}
-</table>
-
-<h3>Objets empruntés</h3>
-<table>
-	<tr>
-		<th>Nom de l'objet</th><th>Type</th><th>Date du prêt</th><th>Prêteur</th><th>&nbsp;</th>
-		{% for emprunt in emprunts %}
-			<tr><td>{{emprunt.objet.libelle}}</td><td>{{emprunt.objet.type}}</td><td>{{emprunt.datePret|date('d/m/Y')}}</td><td>{{emprunt.objet.proprietaire.username}}</td>
-				<td><a href="{{path('projet_k_pret_finPret', {'transactionId': emprunt.id}) }}"><button>Rendre</button></a></td></tr>
+{% if objetsPretes|length > 0 %}
+	<table>
+		<tr>
+			<th>Nom de l'objet</th><th>Type</th><th>Date du prêt</th><th>Emprunteur</th><th>&nbsp;</th>
+		</tr>
+		{% for objet in objetsPretes %}
+			<tr><td>{{objet.libelle}}</td><td>{{objet.type}}</td><td>{{objet.transaction.datePret|date('d/m/Y')}}</td><td>{{objet.transaction.emprunteur.username}}</td>
+				<td><a href="{{path('projet_k_pret_finPret', {'transactionId': objet.transaction.id}) }}"><button>Récupérer</button></a></td></tr>
 		{% else %}
 			<tr><td></td><td></td><td></td></tr>
 		{% endfor %}
-	</tr>
-</table>
+	</table>
+{% else %}
+	<i>Vous n'avez pas prêté d'objets</i>
+{% endif %}
+
+<h3>Objets empruntés</h3>
+{% if emprunts|length > 0 %}
+	<table>
+		<tr>
+			<th>Nom de l'objet</th><th>Type</th><th>Date du prêt</th><th>Prêteur</th><th>&nbsp;</th>
+		</tr>	
+			{% for emprunt in emprunts %}
+				<tr><td>{{emprunt.objet.libelle}}</td><td>{{emprunt.objet.type}}</td><td>{{emprunt.datePret|date('d/m/Y')}}</td><td>{{emprunt.objet.proprietaire.username}}</td>
+					<td><a href="{{path('projet_k_pret_finPret', {'transactionId': emprunt.id}) }}"><button>Rendre</button></a></td></tr>
+			{% endfor %}		
+	</table>
+{% else %}
+	<i>Vous n'avez pas emprunté d'objets</i>
+{% endif %}
 
 <h3>Mes objets disponibles</h3>
-<table>
-	<tr>
-		<th>Nom de l'objet</th><th>Type</th><th>&nbsp;</th>
-	</tr>
-	{% for objet in objetsPossedes %}
-		<tr><td>{{objet.libelle}}</td><td>{{objet.type}}</td><td><a href="{{path('projet_k_pret_preterObjet', {'objetId': objet.id}) }}"><button>Prêter</button></a></td></tr>
-	{% else %}
-		<tr><td></td><td></td><td></td></tr>
-	{% endfor %}
-</table>
-
+{% if objetsPossedes|length > 0 %}
+	<table>
+		<tr>
+			<th>Nom de l'objet</th><th>Type</th><th>&nbsp;</th>
+		</tr>
+		{% for objet in objetsPossedes %}
+			<tr><td>{{objet.libelle}}</td><td>{{objet.type}}</td><td><a href="{{path('projet_k_pret_preterObjet', {'objetId': objet.id}) }}"><button>Prêter</button></a></td></tr>
+		{% endfor %}
+	</table>
+{% else %}
+	<i*>Vous n'avez aucun objet disponible</i>
+{% endif %}
 <p>
 	<a href="{{path('projet_k_pret_ajouterObjet')}}"><button>Nouvel objet</button></a>
 </p>
