@@ -36,11 +36,10 @@ class Objet
     private $type;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="proprietaire", type="string", length=255)
-     */
-    private $proprietaire;
+	 * @ORM\ManyToOne(targetEntity="ProjetK\UserBundle\Entity\User", cascade={"persist"})
+	 * @ORM\JoinColumn(nullable=false)
+	 */
+	 private $proprietaire;
 
 	/**
      * @var string
@@ -48,6 +47,12 @@ class Objet
      * @ORM\Column(name="statut", type="string", length=255)
      */
     private $statut;
+	
+	/**
+     * @ORM\OneToOne(targetEntity="ProjetK\PretBundle\Entity\Transaction", cascade={"persist"})
+	 * @ORM\JoinColumn(nullable=true)
+     */
+    private $transaction;
 
     /**
      * Get id
@@ -149,5 +154,28 @@ class Objet
     public function getStatut()
     {
         return $this->statut;
+    }
+	
+	 /**
+     * Set transaction
+     *
+     * @param ProjetK\PretBundle\Entity\Transaction $transaction
+     * @return Objet
+     */
+    public function setTransaction(\ProjetK\PretBundle\Entity\Transaction $transaction = null)
+    {
+        $this->transaction = $transaction;
+
+        return $this;
+    }
+
+    /**
+     * Get transaction
+     *
+     * @return ProjetK\PretBundle\Entity\Transaction
+     */
+    public function getTransaction()
+    {
+        return $this->transaction;
     }
 }

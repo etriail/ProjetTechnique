@@ -16,18 +16,13 @@ class TransactionController extends Controller
       $this->date_pret=new \DateTime();
     }
 	
-	public function createTransactionAction($objetId){
+	public function createTransactionAction($objetId){		
 		$em=$this->getDoctrine()->getManager();
-		
-		//TODO remplacer par utilisateur courant.
-		$preteur="etriail";
-		
 		$objet=$em->getRepository('ProjetKPretBundle:Objet')->find($objetId);
 		$objet->setStatut("prete");
 		
 		$transaction=new Transaction();
 		$transaction->setObjet($objet);
-		$transaction->setPreteur($preteur);
 		
 		$form=$this->createForm(new TransactionType, $transaction);
 		
@@ -39,7 +34,8 @@ class TransactionController extends Controller
 			
 			//Si le formulaire récupéré est valide on enregistre la transaction en base
 			if($form->isValid()){
-				$em = $this->getDoctrine()->getManager();
+				
+				$objet->setTransaction($transaction);
 			    $em->persist($transaction);
 			    $em->flush();
 				
@@ -50,6 +46,21 @@ class TransactionController extends Controller
 		return $this->render('ProjetKPretBundle:Transaction:ajouter.html.twig', array(
 		    'form' => $form->createView(),
 		));
+	}
+	
+	public function endTransactionAction($transactionId){
+		$em=$this->getDoctrine()->getManager();
+		
+		$transaction=$em->getRepository('ProjetKPretBundle:Transaction')->find($transactionId);
+		$objet=$transaction->getObjet();
+		$objet->setStatut("possede");
+		$objet->setTransaction(null);
+		
+		$em->persist($objet);
+		$em->remove($transaction);
+		$em->flush();
+		
+		return $this->redirect($this->generateUrl('projet_k_pret_homepage'));
 	}
 }
 ?>

@@ -13,3 +13,7 @@ projet_k_pret_ajouterObjet:
 projet_k_pret_preterObjet:
     pattern:  /add/{objetId}
     defaults: { _controller: ProjetKPretBundle:Transaction:createTransaction}
+
+projet_k_pret_finPret:
+    pattern: /end/{transactionId}
+    defaults: { _controller: ProjetKPretBundle:Transaction:endTransaction}

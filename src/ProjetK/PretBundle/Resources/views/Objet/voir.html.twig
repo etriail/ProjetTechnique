@@ -15,15 +15,30 @@
 <h3>Objets prêtés</h3>
 <table>
 	<tr>
-		<th>Nom de l'objet</th><th>Type</th><th>Date du prêt</th><th>Emprunteur</th>
+		<th>Nom de l'objet</th><th>Type</th><th>Date du prêt</th><th>Emprunteur</th><th>&nbsp;</th>
 	</tr>
-	{% for pret in prets %}
-		<tr><td>{{pret.objet.libelle}}</td><td>{{pret.objet.type}}</td><td>{{pret.datePret|date('d/m/Y')}}</td><td>{{pret.emprunteur}}</td></tr>
+	{% for objet in objetsPretes %}
+		<tr><td>{{objet.libelle}}</td><td>{{objet.type}}</td><td>{{objet.transaction.datePret|date('d/m/Y')}}</td><td>{{objet.transaction.emprunteur.username}}</td>
+			<td><a href="{{path('projet_k_pret_finPret', {'transactionId': objet.transaction.id}) }}"><button>Récupérer</button></a></td></tr>
 	{% else %}
 		<tr><td></td><td></td><td></td></tr>
 	{% endfor %}
 </table>
-<h3>Mes objets</h3>
+
+<h3>Objets empruntés</h3>
+<table>
+	<tr>
+		<th>Nom de l'objet</th><th>Type</th><th>Date du prêt</th><th>Prêteur</th><th>&nbsp;</th>
+		{% for emprunt in emprunts %}
+			<tr><td>{{emprunt.objet.libelle}}</td><td>{{emprunt.objet.type}}</td><td>{{emprunt.datePret|date('d/m/Y')}}</td><td>{{emprunt.objet.proprietaire.username}}</td>
+				<td><a href="{{path('projet_k_pret_finPret', {'transactionId': emprunt.id}) }}"><button>Rendre</button></a></td></tr>
+		{% else %}
+			<tr><td></td><td></td><td></td></tr>
+		{% endfor %}
+	</tr>
+</table>
+
+<h3>Mes objets disponibles</h3>
 <table>
 	<tr>
 		<th>Nom de l'objet</th><th>Type</th><th>&nbsp;</th>

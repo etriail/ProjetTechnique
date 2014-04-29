@@ -1,0 +1,7 @@
+parameters:
+#    projet_k_user.example.class: ProjetK\UserBundle\Example
+
+services:
+#    projet_k_user.example:
+#        class: %projet_k_user.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

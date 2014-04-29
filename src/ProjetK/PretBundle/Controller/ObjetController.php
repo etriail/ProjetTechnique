@@ -11,14 +11,25 @@ use ProjetK\PretBundle\Form\TransactionType;
 
 class ObjetController extends Controller
 {
-	public function __construct()
+	/*public function __construct()
     {
-      $this->proprietaire = "etriail";
+      $this->proprietaire = $this->get('security.context')->getToken()->getUser();
       $this->statut="possede";
-    }
+    }*/
 	
-	public function voirObjetsAction($user="etriail"){
+	public function voirObjetsAction($username=null){
 		$em = $this->getDoctrine()->getEntityManager();
+		if($username==null){
+			$user=$this->get('security.context')->getToken()->getUser();
+		} else {
+			$userRepo = $this->getDoctrine()->getRepository('ProjetKUserBundle:User');
+			$user=$userRepo->findBy(
+				array(
+					'username'=>$username
+				)
+			);
+		}
+		
 		
 		//Récupération de la liste des objets actuellement possédés par l'utilisateur
 		$objetRepo = $this->getDoctrine()->getRepository('ProjetKPretBundle:Objet');
@@ -30,24 +41,30 @@ class ObjetController extends Controller
         			);
 		
 		//Récupération de la liste des objets prêtés par l'utilisateur
-		$transactionRepo = $this->getDoctrine()->getRepository('ProjetKPretBundle:Transaction');
-		$listeObjetsPretes=$transactionRepo->findBy(
+		$listeObjetsPretes=$objetRepo->findBy(
 	            		array(
-	                		'preteur' => $user,
-	            		),
-	            		array('datePret' => 'asc')
+	                		'proprietaire' => $user,
+	                		'statut' =>"prete"
+	            		)
         );
+		
+		$listeEmprunts=$em->getRepository('ProjetKPretBundle:Transaction')->findBy(
+			array(
+				'emprunteur'=>$user
+			)
+		);
 		
 		return $this->render('ProjetKPretBundle:Objet:voir.html.twig', array(
              'objetsPossedes' => $listeObjetsPossedes,
-             'prets' => $listeObjetsPretes             
+             'objetsPretes' => $listeObjetsPretes,
+             'emprunts' => $listeEmprunts             
         ));
 	}
 	
 	public function createObjetAction(){
 		
-		//TODO récupérer l'utilisateur actuel
-		$user="etriail";
+		
+		$user=$this->get('security.context')->getToken()->getUser();
 		
 		$em=$this->getDoctrine()->getManager();
 		$objet=new Objet();

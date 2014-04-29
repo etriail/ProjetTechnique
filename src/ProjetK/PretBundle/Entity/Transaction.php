@@ -29,24 +29,22 @@ class Transaction
     private $datePret;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="emprunteur", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="ProjetK\UserBundle\Entity\User", cascade={"persist"})
+	 * @ORM\JoinColumn(nullable=true)
      */
     private $emprunteur;
 
     /**
      * @ORM\OneToOne(targetEntity="ProjetK\PretBundle\Entity\Objet", cascade={"persist"})
-	 * @ORM\JoinColumn(nullable=false)
+	 * @ORM\JoinColumn(nullable=true)
      */
     private $objet;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="preteur", type="string", length=255)
-     */
-    private $preteur;
+    // /**
+     // * @ORM\OneToOne(targetEntity="ProjetK\UserBundle\Entity\User", cascade={"persist"})
+	 // * @ORM\JoinColumn(nullable=false)
+     // */
+    // private $preteur;
 
 
     /**
@@ -85,48 +83,49 @@ class Transaction
     /**
      * Set emprunteur
      *
-     * @param string $emprunteur
+     * @param ProjetK\UserBundle\Entity\User $emprunteur
      * @return Transaction
      */
-    public function setEmprunteur($emprunteur)
+    public function setEmprunteur(\ProjetK\UserBundle\Entity\User $emprunteur)
     {
         $this->emprunteur = $emprunteur;
 
         return $this;
     }
 
+	
     /**
      * Get emprunteur
      *
-     * @return string 
+     * @return ProjetK\UserBundle\Entity\User
      */
     public function getEmprunteur()
     {
         return $this->emprunteur;
     }
 	
-	    /**
-     * Set preteur
-     *
-     * @param string $preteur
-     * @return Transaction
-     */
-    public function setPreteur($preteur)
-    {
-        $this->preteur = $preteur;
+	    // /**
+     // * Set preteur
+     // *
+     // * @param ProjetK\UserBundle\Entity\User $preteur
+     // * @return Transaction
+     // */
+    // public function setPreteur(\ProjetK\UserBundle\Entity\User $preteur)
+    // {
+        // $this->preteur = $preteur;
+// 
+        // return $this;
+    // }
 
-        return $this;
-    }
-
-    /**
-     * Get preteur
-     *
-     * @return string 
-     */
-    public function getPreteur()
-    {
-        return $this->preteur;
-    }
+    // /**
+     // * Get preteur
+     // *
+     // * @return ProjetK\UserBundle\Entity\User
+     // */
+    // public function getPreteur()
+    // {
+        // return $this->preteur;
+    // } 
 
     /**
      * Set objet

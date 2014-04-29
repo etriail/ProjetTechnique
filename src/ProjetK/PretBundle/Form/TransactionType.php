@@ -14,8 +14,14 @@ class TransactionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-        	->add('emprunteur', 'text', array('label'=> 'Emprunteur', 'required'=>true))
+        	$builder->add(
+                'emprunteur', 
+                'entity',
+                array(
+                    'class' => 'ProjetKUserBundle:User',
+                    'label' => 'Prêter à',
+                    'property' => 'username',
+                    'required' => true))
             ->add('date_pret', 'date', array('label'=> 'Date du prêt', 'required'=>true))
         ;
     }
