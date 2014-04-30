@@ -5,10 +5,22 @@
         <title>{% block title %}Projet Technique M2 IPII{% endblock %}</title>
         {% block stylesheets %}
         	<link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}" />
+        	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
         {% endblock %}
         {% block javascripts %}
-        	<script src="{{ asset('../vendor/bootstrap.js') }}"></script> 
-        	<script src="{{ asset('../vendor/jquery-1.11.0.js') }}"></script>
+	    <script src="{{ asset('../vendor/bootstrap.js') }}"></script> 
+	    <script src="{{ asset('../vendor/jquery-1.11.0.js') }}"></script>
+	    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	    <script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
+	    <script>
+		    global = {
+		        locale   :	'{{ app.request.locale }}'
+		    }
+	    </script>
+	    <script type="text/javascript" drc="{{ asset('bundles/projetkpret/js/file.js') }}"></script>
+	    <script type="text/javascript" drc="{{ asset('bundles/projetkpret/js/script.js') }}"></script>
+	    <script type="text/javascript" drc="{{ asset('bundles/projetkpret/js/jquery.ui.datepicker-fr.js') }}"></script>
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
