@@ -22,7 +22,7 @@ class TransactionType extends AbstractType
                     'label' => 'Prêter à',
                     'property' => 'username',
                     'required' => true))
-            ->add('date_pret', 'date', array('label'=> 'Date du prêt', 'required'=>true))
+            ->add('date_pret', 'datePicker', array('label'=> 'Date du prêt', 'required'=>false))
         ;
     }
     
